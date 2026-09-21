@@ -1,0 +1,255 @@
+/* Dark mode — tema próprio deste app (uso pessoal), neutro, sem marca de
+   empresa nenhuma. Inspirado em ferramentas tipo Linear/Notion no modo
+   escuro: fundo quase preto, cards em cinza-chumbo, um accent violeta pra
+   ações/destaques. */
+:root {
+  --bg: #0b0d13;
+  --superficie: #161923;
+  --superficie-2: #1d212c;
+  --borda: #262b38;
+  --texto: #e7e9ee;
+  --muted: #8890a6;
+  --accent: #8d7bf7;
+  --accent-forte: #7263e8;
+  --accent-tint: rgba(141, 123, 247, .16);
+  --verde: #34d399;
+  --amarelo: #fbbf24;
+  --vermelho: #f87171;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: var(--bg); }
+*::-webkit-scrollbar-thumb { background: var(--superficie-2); border-radius: 8px; border: 2px solid var(--bg); }
+*::-webkit-scrollbar-thumb:hover { background: var(--borda); }
+
+body {
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  color: var(--texto);
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(900px 500px at 10% -10%, rgba(141, 123, 247, .12), transparent 60%),
+    radial-gradient(700px 400px at 100% 0%, rgba(52, 211, 153, .06), transparent 55%);
+  background-attachment: fixed;
+  margin: 0;
+}
+
+header.topo {
+  background: rgba(22, 25, 35, .72);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--borda);
+  color: var(--texto);
+  padding: 14px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+header.topo a, header.topo .marca { color: var(--texto); text-decoration: none; font-weight: 700; font-size: 16px; }
+.topo-nav { display: flex; align-items: center; gap: 22px; }
+.topo-nav a { margin-left: 0; font-weight: 500; font-size: 13px; color: var(--muted); text-decoration: none; transition: color .15s ease; cursor: pointer; background: none; border: none; font-family: inherit; padding: 0; }
+.topo-nav a:hover, .topo-nav a.ativa { color: var(--accent); }
+.topo-espacador { margin-left: auto; }
+main { max-width: 960px; margin: 0 auto; padding: 24px 28px 60px; }
+
+h1 { font-size: 20px; font-weight: 700; color: var(--texto); margin: 0 0 18px; }
+h2 { font-size: 15px; font-weight: 600; color: var(--texto); border-bottom: 1px solid var(--borda); padding-bottom: 6px; margin: 20px 0 12px; }
+.card { background: var(--superficie); border: 1px solid var(--borda); border-radius: 12px; padding: 16px 18px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0, 0, 0, .3); }
+.muted { color: var(--muted); font-size: 12px; }
+label { display: block; font-size: 12px; color: var(--muted); margin: 10px 0 3px; }
+
+input[type="text"], input[type="password"], input[type="date"], input[type="time"] {
+  width: 100%; padding: 8px 10px; border: 1px solid var(--borda); border-radius: 7px; font-size: 13px;
+  background: var(--superficie-2); color: var(--texto); font-family: inherit;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-tint); }
+
+button, .botao {
+  background: var(--accent-forte); color: white; border: none; padding: 9px 16px; border-radius: 8px;
+  font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block;
+  font-family: inherit; transition: background-color .15s ease, transform .05s ease;
+}
+button:hover, .botao:hover { background: var(--accent); }
+button.secundario, .botao.secundario { background: transparent; color: var(--texto); border: 1px solid var(--borda); }
+button.secundario:hover, .botao.secundario:hover { border-color: var(--accent); color: var(--accent); background: transparent; }
+button:disabled, .botao:disabled { opacity: .5; cursor: not-allowed; }
+
+/* Barra de alerta de pendências atrasadas — clicável, leva pra a lista
+   consolidada de atrasadas. */
+.alerta-atraso {
+  display: block; background: rgba(248, 113, 113, .12); color: var(--vermelho); border: 1px solid rgba(248, 113, 113, .35);
+  border-radius: 10px; padding: 10px 16px; font-weight: 700; font-size: 13px;
+  text-decoration: none; margin-bottom: 16px; transition: background-color .15s ease; cursor: pointer;
+  width: 100%; text-align: left; font-family: inherit;
+}
+.alerta-atraso:hover { background: rgba(248, 113, 113, .2); }
+
+.calendario-nav { display: flex; align-items: center; justify-content: center; gap: 18px; margin-bottom: 14px; }
+.calendario-nav h1 { margin: 0; min-width: 220px; text-align: center; }
+
+.grade-calendario { width: 100%; border-collapse: collapse; background: var(--superficie); border-radius: 12px; overflow: hidden; border: 1px solid var(--borda); }
+.grade-calendario th {
+  background: transparent; color: var(--muted); text-align: center; padding: 10px 4px; font-size: 10.5px;
+  font-weight: 700; text-transform: uppercase; letter-spacing: .05em; border-bottom: 1px solid var(--borda);
+}
+.grade-calendario td.dia-cel {
+  border: 1px solid var(--borda); vertical-align: top; height: 64px; width: 14.28%;
+  padding: 6px; cursor: pointer; position: relative; transition: background-color .1s ease;
+}
+.grade-calendario td.dia-cel:hover { background: var(--superficie-2); }
+.grade-calendario td.dia-cel.fora-do-mes { color: #454b5c; background: rgba(0, 0, 0, .12); }
+.grade-calendario td.dia-cel.hoje .dia-numero { background: var(--accent); color: #0b0d13; font-weight: 800; }
+.grade-calendario td.dia-cel.selecionado { background: var(--superficie-2); box-shadow: inset 0 0 0 2px var(--accent); }
+
+.dia-numero {
+  font-size: 13px; font-weight: 600; color: var(--texto); display: inline-flex; align-items: center; justify-content: center;
+  width: 23px; height: 23px; border-radius: 50%;
+}
+.dia-numero.contorno-atraso { border: 2px solid var(--vermelho); }
+
+.dia-indicadores { display: flex; align-items: center; gap: 4px; margin-top: 6px; }
+.bolinha { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.bolinha-urgente { background: var(--vermelho); }
+.bolinha-media { background: var(--amarelo); }
+.bolinha-baixa { background: var(--verde); }
+/* Quantidade de pendências no dia — a bolinha sozinha só diz a urgência
+   mais alta, não quantas tem. */
+.dia-contagem { font-size: 10px; font-weight: 700; color: var(--muted); background: var(--superficie-2); border-radius: 8px; padding: 0 4px; }
+
+/* Painel do dia — abre abaixo da grade quando um dia é clicado. */
+.painel-dia { background: var(--superficie); border: 1px solid var(--borda); border-radius: 12px; padding: 16px 18px; margin-top: 16px; }
+.painel-dia h2 { margin-top: 0; }
+
+.pendencia-linha {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 10px; padding: 9px 10px; border-left: 4px solid var(--muted);
+  border-radius: 8px; margin-bottom: 6px; background: var(--superficie-2);
+}
+.pendencia-linha.urgencia-urgente { border-left-color: var(--vermelho); }
+.pendencia-linha.urgencia-media { border-left-color: var(--amarelo); }
+.pendencia-linha.urgencia-baixa { border-left-color: var(--verde); }
+.pendencia-linha.concluida { opacity: .5; }
+.pendencia-linha.concluida .pendencia-titulo { text-decoration: line-through; }
+.pendencia-linha .form-checkbox { margin: 0; }
+.pendencia-linha .lixeira { background: none; border: none; color: var(--muted); font-size: 13px; padding: 4px 2px; }
+.pendencia-linha .lixeira:hover { color: var(--vermelho); }
+.pendencia-titulo { flex: 1; font-size: 13px; }
+.pendencia-hora {
+  font-size: 11px; font-weight: 700; color: var(--accent); background: var(--accent-tint);
+  border-radius: 4px; padding: 2px 6px; font-variant-numeric: tabular-nums;
+}
+.pendencia-atraso { color: var(--vermelho); font-size: 11px; font-weight: 600; }
+
+/* Editar pendência — <details> nativo, sem JS extra: some/reaparece
+   sozinho ao clicar no ✏️. */
+.pendencia-editar[open] { flex-basis: 100%; }
+.pendencia-editar summary {
+  list-style: none; cursor: pointer; color: var(--muted); font-size: 13px; padding: 4px 2px;
+  transition: color .15s ease;
+}
+.pendencia-editar summary::-webkit-details-marker { display: none; }
+.pendencia-editar summary:hover { color: var(--accent); }
+.form-editar-pendencia {
+  display: flex; align-items: flex-end; flex-wrap: wrap; gap: 10px; margin-top: 10px;
+  padding: 12px; border-radius: 8px; background: var(--superficie); border: 1px solid var(--borda);
+}
+.form-editar-pendencia label { display: flex; flex-direction: column; gap: 3px; font-size: 11px; color: var(--muted); margin: 0; }
+.form-editar-pendencia input[type="text"] { min-width: 200px; }
+
+.form-nova-pendencia { display: flex; align-items: flex-end; gap: 14px; flex-wrap: wrap; margin-top: 12px; }
+.form-nova-pendencia input[type="text"] { flex: 1; min-width: 180px; }
+.form-nova-pendencia .campo-hora { width: auto; }
+
+/* Grupo com micro-rótulo em maiúsculas acima. */
+.campo-grupo { display: flex; flex-direction: column; gap: 5px; }
+.campo-rotulo { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+
+/* Urgência vira "pills" (segmented control). */
+.urgencia-opcoes { display: flex; gap: 8px; flex-wrap: wrap; }
+.urgencia-opcoes label {
+  position: relative; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
+  padding: 6px 12px; border-radius: 20px; border: 1px solid var(--borda); background: var(--superficie-2);
+  color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer;
+  transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+.urgencia-opcoes label:hover { border-color: var(--muted); }
+.urgencia-opcoes input[type="radio"] {
+  position: absolute; opacity: 0; width: 0; height: 0; margin: 0;
+}
+.urgencia-opcao.urgencia-urgente:has(input:checked) { background: rgba(248, 113, 113, .14); border-color: var(--vermelho); color: var(--vermelho); }
+.urgencia-opcao.urgencia-media:has(input:checked) { background: rgba(251, 191, 36, .14); border-color: var(--amarelo); color: var(--amarelo); }
+.urgencia-opcao.urgencia-baixa:has(input:checked) { background: rgba(52, 211, 153, .14); border-color: var(--verde); color: var(--verde); }
+
+/* Notas — duas colunas, lista lateral + editor com autosave. */
+.notas-layout { display: grid; grid-template-columns: 240px 1fr; gap: 16px; align-items: start; }
+.notas-lista { background: var(--superficie); border: 1px solid var(--borda); border-radius: 12px; padding: 12px; }
+.notas-lista ul { list-style: none; margin: 12px 0 0; padding: 0; }
+.notas-lista li {
+  display: flex; align-items: center; justify-content: space-between; border-radius: 6px; padding: 2px 4px;
+}
+.notas-lista li.ativa { background: var(--accent-tint); }
+.notas-lista li.fixada { background: rgba(251, 191, 36, .1); }
+.notas-lista li.fixada.ativa { background: rgba(251, 191, 36, .18); }
+.notas-lista li a {
+  flex: 1; padding: 8px 4px; font-size: 13px; color: var(--texto); text-decoration: none; cursor: pointer;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.notas-lista li form { margin: 0; }
+.notas-lista .lixeira { background: none; border: none; color: var(--muted); font-size: 13px; padding: 4px 6px; }
+.notas-lista .lixeira:hover { color: var(--vermelho); }
+.notas-lista .estrela { background: none; border: none; color: var(--muted); font-size: 14px; padding: 4px 2px 4px 6px; }
+.notas-lista li.fixada .estrela { color: var(--amarelo); }
+.notas-lista .estrela:hover { color: var(--amarelo); }
+
+.notas-editor { background: var(--superficie); border: 1px solid var(--borda); border-radius: 12px; padding: 16px 18px; }
+.notas-editor #nota-titulo {
+  font-size: 18px; font-weight: 700; color: var(--texto); background: transparent; border: none;
+  border-bottom: 1px solid var(--borda); border-radius: 0; padding: 4px 2px 8px; margin-bottom: 12px; width: 100%;
+}
+.notas-editor #nota-titulo:focus { outline: none; box-shadow: none; border-bottom-color: var(--accent); }
+.notas-editor #nota-corpo {
+  width: 100%; min-height: 420px; border: none; background: transparent; color: var(--texto); resize: vertical;
+  font-size: 14px; font-family: inherit; line-height: 1.6; padding: 4px 2px;
+}
+.notas-editor #nota-corpo:focus { outline: none; }
+.notas-editor #nota-status { display: block; margin-top: 8px; text-align: right; color: var(--accent); font-size: 12px; }
+
+/* Login / tela de senha */
+.pg-login { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+.pg-login .miolo { width: 100%; max-width: 380px; }
+.pg-login h1 { text-align: center; font-size: 22px; margin-bottom: 24px; }
+.pg-login button { width: 100%; margin-top: 16px; }
+.aviso-seguranca { font-size: 11px; color: var(--muted); text-align: center; margin-top: 14px; line-height: 1.5; }
+.erro-senha { color: var(--vermelho); font-size: 12px; min-height: 16px; margin: 6px 0 0; }
+
+/* A tela de senha é um overlay por cima de todo o resto do app (não uma
+   página própria, como era na versão com servidor) - precisa cobrir a
+   tela inteira enquanto ativa. `.pg-login` already define `display:flex`
+   como regra de autor, que teria prioridade sobre o `display:none` padrão
+   do atributo `hidden` (regra de user-agent) - por isso o `[hidden]`
+   precisa ser explícito aqui, senão o overlay continua "visível" (e
+   capturando cliques) mesmo com `hidden` marcado via JS. */
+#tela-senha { position: fixed; inset: 0; background: var(--bg); z-index: 50; }
+#tela-senha[hidden] { display: none; }
+
+/* Backup */
+.backup-acoes { display: flex; gap: 10px; flex-wrap: wrap; }
+
+@media (max-width: 720px) {
+  .notas-layout { grid-template-columns: 1fr; }
+  .grade-calendario td.dia-cel { height: 48px; }
+}
+
+/* Celular: o cabeçalho original (feito pra tela larga) espremia "Minhas
+   Pendências" + as 3 abas + Sair numa linha só e quebrava feio - aqui vira
+   duas linhas (marca sozinha em cima, nav abaixo, ocupando a largura
+   toda), sem overflow horizontal. */
+@media (max-width: 480px) {
+  header.topo { flex-wrap: wrap; gap: 8px; padding: 12px 16px; }
+  header.topo a, header.topo .marca { font-size: 15px; white-space: nowrap; }
+  .topo-nav { width: 100%; gap: 14px; flex-wrap: wrap; }
+  .topo-espacador { display: none; }
+  main { padding: 16px 16px 48px; }
+}

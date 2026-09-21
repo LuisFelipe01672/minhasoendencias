@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Minhas Pendências</title>
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#0b0d13">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <link rel="icon" href="./icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/estilo.css">
+</head>
+<body>
+  <div id="tela-senha" class="pg-login" hidden>
+    <div class="miolo">
+      <h1>📌 Minhas Pendências</h1>
+      <div class="card">
+        <form id="form-senha">
+          <label id="titulo-tela-senha">Senha</label>
+          <input type="password" id="campo-senha" required autofocus>
+          <p id="erro-senha" class="erro-senha"></p>
+          <button type="submit">Entrar</button>
+        </form>
+      </div>
+      <p class="aviso-seguranca">
+        Esta senha é só um freio local (guardada só neste navegador) — não
+        é uma proteção de verdade, já que o app roda inteiro no seu
+        celular, sem servidor nenhum por trás.
+      </p>
+    </div>
+  </div>
+
+  <header class="topo">
+    <span class="marca">📌 Minhas Pendências</span>
+    <nav class="topo-nav">
+      <a href="#calendario" data-rota="calendario">Calendário</a>
+      <a href="#pendencias" data-rota="pendencias">Pendências</a>
+      <a href="#notas" data-rota="notas">Notas</a>
+      <span class="topo-espacador"></span>
+      <a href="#backup" data-rota="backup" title="Backup">💾</a>
+      <button type="button" id="botao-sair" class="secundario" style="padding:4px 10px;font-size:12px">Bloquear</button>
+    </nav>
+  </header>
+  <main id="conteudo"></main>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
